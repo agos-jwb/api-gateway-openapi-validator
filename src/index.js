@@ -139,14 +139,22 @@ module.exports = class OpenApiValidator {
                     Object.assign(response, { body: converted ? JSON.stringify(filteredResponse) : filteredResponse });
                 }
                 
-                callback(null, response);
+                if (callback) {
+                    callback(null, response);
+                } else {
+                    return response;
+                }
             } catch (error) {
-                callback(null, {
+                let response = {
                     body: JSON.stringify({ message: error.message }),
                     statusCode: error.statusCode || 500,
-                });
+                };
+                if (callback) {
+                    callback(null, response);
+                } else {
+                    return response;
+                }
             }
-
         }
     }
 

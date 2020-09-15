@@ -97,7 +97,7 @@ module.exports = class RequestValidator {
             const message = this._ajv.errorsText(errors, {
                 dataVar: 'request',
             });
-            throw new ValidationError(message, 415);
+            throw new ValidationError(message, 405);
         }
         return request;
     }
